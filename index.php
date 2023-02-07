@@ -1,5 +1,44 @@
 <?php
 
+$hotels = [
+
+    [
+        'name' => 'Hotel Belvedere',
+        'description' => 'Hotel Belvedere Descrizione',
+        'parking' => true,
+        'vote' => 4,
+        'distance_to_center' => 10.4
+    ],
+    [
+        'name' => 'Hotel Futuro',
+        'description' => 'Hotel Futuro Descrizione',
+        'parking' => true,
+        'vote' => 2,
+        'distance_to_center' => 2
+    ],
+    [
+        'name' => 'Hotel Rivamare',
+        'description' => 'Hotel Rivamare Descrizione',
+        'parking' => false,
+        'vote' => 1,
+        'distance_to_center' => 1
+    ],
+    [
+        'name' => 'Hotel Bellavista',
+        'description' => 'Hotel Bellavista Descrizione',
+        'parking' => false,
+        'vote' => 5,
+        'distance_to_center' => 5.5
+    ],
+    [
+        'name' => 'Hotel Milano',
+        'description' => 'Hotel Milano Descrizione',
+        'parking' => true,
+        'vote' => 2,
+        'distance_to_center' => 50
+    ],
+
+];
 
 ?>
 
@@ -18,7 +57,30 @@
 </head>
 
 <body>
-
+    <div class="container mt-5">
+        <h1>Boolean Hotels</h1>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <?php foreach ($hotels[0] as $key => $hotel) : ?>
+                        <th scope="col"><?= $key ?></th>
+                    <? endforeach; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($hotels as $key => $hotel) : ?>
+                    <tr>
+                        <th scope="row"><?= $hotel['name'] ?></th>
+                        <td><?= $hotel['description'] ?></td>
+                        <td><?= $hotel['parking'] ?></td>
+                        <td><?= $hotel['vote'] ?></td>
+                        <td><?= $hotel['distance_to_center'] ?></td>
+                    </tr>
+            </tbody>
+        <? endforeach; ?>
+        </table>
+    </div>
 </body>
 
 </html>
