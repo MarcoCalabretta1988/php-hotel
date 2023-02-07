@@ -43,6 +43,26 @@ $hotels = [
 $whit_parking = $_GET['whitparking'] ?? '';
 $vote = $_GET['vote'] ?? '';
 
+//RESCUE KEY TO ARRAY
+
+$array_keys = array_keys($hotels[0]);
+
+//FILTER HOTEL
+
+$filtered_hotels = [];
+
+foreach ($hotels as $hotel) {
+    if (!$whit_parking && !$vote) {
+        $filtered_hotels = $hotels;
+    } elseif ($whit_parking == $hotel['parking'] || !$whit_parking) {
+        if ($vote <= $hotel['vote'] || !$vote) {
+            $filtered_hotels[] = $hotel;
+        }
+    }
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -101,25 +121,21 @@ $vote = $_GET['vote'] ?? '';
             <!-- HEAD OF TABLE -->
             <thead>
                 <tr>
-                    <?php foreach ($hotels[0] as $key => $hotel) : ?>
+                    <?php foreach ($array_keys as $key) : ?>
                         <th scope="col"><?= strtoupper($key) ?></th>
                     <? endforeach; ?>
                 </tr>
             </thead>
             <!-- TABLE BODY -->
             <tbody>
-                <?php foreach ($hotels as $key => $hotel) : ?>
-                    <?php if ($whit_parking == $hotel['parking'] || !$whit_parking) : ?>
-                        <?php if ($vote <= $hotel['vote'] || !$vote) : ?>
-                            <tr>
-                                <th scope="row"><?= $hotel['name'] ?></th>
-                                <td><?= $hotel['description'] ?></td>
-                                <td><?= $hotel['parking'] ?></td>
-                                <td><?= $hotel['vote'] ?></td>
-                                <td><?= $hotel['distance_to_center'] ?></td>
-                            </tr>
-                        <?php endif; ?>
-                    <?php endif; ?>
+                <?php foreach ($filtered_hotels as $hotel) : ?>
+                    <tr>
+                        <th scope="row"><?= $hotel['name'] ?></th>
+                        <td><?= $hotel['description'] ?></td>
+                        <td><?= $hotel['parking'] ?></td>
+                        <td><?= $hotel['vote'] ?></td>
+                        <td><?= $hotel['distance_to_center'] ?></td>
+                    </tr>
             </tbody>
         <? endforeach; ?>
         </table>
