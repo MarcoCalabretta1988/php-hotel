@@ -39,6 +39,33 @@ $hotels = [
     ],
 
 ];
+
+$select_value = [
+    [
+        'value' => '0',
+        'text' => 'voto'
+    ],
+    [
+        'value' => '1',
+        'text' => '1 Stelle o sup'
+    ],
+    [
+        'value' => '2',
+        'text' => '2 Stelle o sup'
+    ],
+    [
+        'value' => '3',
+        'text' => '3 Stelle o sup'
+    ],
+    [
+        'value' => '4',
+        'text' => '4 Stelle o sup'
+    ],
+    [
+        'value' => '5',
+        'text' => '5 Stelle'
+    ],
+];
 //IMPORT CHOISE AND CHECK IF IS DECLARED
 $whit_parking = $_GET['whitparking'] ?? '';
 $vote = $_GET['vote'] ?? '';
@@ -94,17 +121,14 @@ foreach ($hotels as $hotel) {
             <div class="d-flex align-items-center justify-content-around">
                 <!-- PARKING CHECKBOX  -->
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value=true id="whit_parking" name="whitparking" <?php if ($whit_parking) : ?><?= 'checked' ?><? endif; ?>>
+                    <input class="form-check-input" type="checkbox" value=true id="whit_parking" name="whitparking" <?php if ($whit_parking) : ?><?= 'checked' ?><?php endif; ?>>
                     <label class="form-check-label" for="whit_parking">Parcheggio </label>
                 </div>
                 <!--  VOTE SELECT -->
                 <select class="form-select form-select-lg mb-3 w-25" name="vote">
-                    <option value="0" selected>Voto</option>
-                    <option value="1">1 Stella o sup</option>
-                    <option value="2">2 Stelle o sup</option>
-                    <option value="3">3 Stelle o sup</option>
-                    <option value="4">4 Stelle o sup</option>
-                    <option value="5">5 Stelle</option>
+                    <?php foreach ($select_value as $value) : ?>
+                        <option value="<?= $value['value'] ?>" <?php if ($vote === $value['value']) : ?><?= 'selected' ?><?php endif; ?>> <?= $value['text'] ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
 
@@ -123,7 +147,7 @@ foreach ($hotels as $hotel) {
                 <tr>
                     <?php foreach ($array_keys as $key) : ?>
                         <th scope="col"><?= strtoupper($key) ?></th>
-                    <? endforeach; ?>
+                    <?php endforeach; ?>
                 </tr>
             </thead>
             <!-- TABLE BODY -->
@@ -137,7 +161,7 @@ foreach ($hotels as $hotel) {
                         <td><?= $hotel['distance_to_center'] ?></td>
                     </tr>
             </tbody>
-        <? endforeach; ?>
+        <?php endforeach; ?>
         </table>
     </div>
 </body>
