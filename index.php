@@ -1,5 +1,5 @@
 <?php
-//Array con i dati
+//DATA ARRAY
 $hotels = [
 
     [
@@ -39,11 +39,9 @@ $hotels = [
     ],
 
 ];
-//Recupero scelta con checkbox
+//IMPORT CHOISE AND CHECK IF IS DECLARED
 $whit_parking = $_GET['whitparking'] ?? '';
 $vote = $_GET['vote'] ?? '';
-
-var_dump($whit_parking, $vote);
 
 ?>
 
@@ -71,13 +69,26 @@ var_dump($whit_parking, $vote);
         <h1>Boolean Hotels</h1>
         <hr>
         <h3>Filtra ricerca per:</h3>
+        <!-- FORM -->
         <form action="" method="GET">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="true" id="whit_parking" name="whitparking">
-                <label class="form-check-label" for="whit_parking">Parcheggio </label>
+            <div class="d-flex align-items-center justify-content-around">
+                <!-- PARKING CHECKBOX  -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value=true id="whit_parking" name="whitparking" <?php if ($whit_parking) : ?><?= 'checked' ?><? endif; ?>>
+                    <label class="form-check-label" for="whit_parking">Parcheggio </label>
+                </div>
+                <!--  VOTE SELECT -->
+                <select class="form-select form-select-lg mb-3 w-25" name="vote">
+                    <option value="0" selected>Voto</option>
+                    <option value="1">1 Stella o sup</option>
+                    <option value="2">2 Stelle o sup</option>
+                    <option value="3">3 Stelle o sup</option>
+                    <option value="4">4 Stelle o sup</option>
+                    <option value="5">5 Stelle</option>
+                </select>
             </div>
 
-            <div class="my-3">
+            <div class="my-3 text-center">
 
                 <button class="btn btn-primary">Cerca</button>
                 <a href="http://localhost:8080/php-hotel" class="btn btn-danger">Annulla</a>
@@ -85,7 +96,9 @@ var_dump($whit_parking, $vote);
 
         </form>
         <hr>
+        <!-- TABLE -->
         <table class="table text-center">
+            <!-- HEAD OF TABLE -->
             <thead>
                 <tr>
                     <?php foreach ($hotels[0] as $key => $hotel) : ?>
@@ -93,16 +106,19 @@ var_dump($whit_parking, $vote);
                     <? endforeach; ?>
                 </tr>
             </thead>
+            <!-- TABLE BODY -->
             <tbody>
                 <?php foreach ($hotels as $key => $hotel) : ?>
                     <?php if ($whit_parking == $hotel['parking'] || !$whit_parking) : ?>
-                        <tr>
-                            <th scope="row"><?= $hotel['name'] ?></th>
-                            <td><?= $hotel['description'] ?></td>
-                            <td><?= $hotel['parking'] ?></td>
-                            <td><?= $hotel['vote'] ?></td>
-                            <td><?= $hotel['distance_to_center'] ?></td>
-                        </tr>
+                        <?php if ($vote <= $hotel['vote'] || !$vote) : ?>
+                            <tr>
+                                <th scope="row"><?= $hotel['name'] ?></th>
+                                <td><?= $hotel['description'] ?></td>
+                                <td><?= $hotel['parking'] ?></td>
+                                <td><?= $hotel['vote'] ?></td>
+                                <td><?= $hotel['distance_to_center'] ?></td>
+                            </tr>
+                        <?php endif; ?>
                     <?php endif; ?>
             </tbody>
         <? endforeach; ?>
