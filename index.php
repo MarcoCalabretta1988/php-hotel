@@ -156,12 +156,12 @@ foreach ($hotels as $hotel) {
                     <tr>
                         <th scope="row"><?= $hotel['name'] ?></th>
                         <td><?= $hotel['description'] ?></td>
-                        <td><?= $hotel['parking'] ?></td>
+                        <td><?= $hotel['parking'] ? '&#9989;' : '&#10060;' ?></td>
                         <td><?= $hotel['vote'] ?></td>
                         <td><?= $hotel['distance_to_center'] ?></td>
                     </tr>
+                <?php endforeach; ?>
             </tbody>
-        <?php endforeach; ?>
         </table>
     </div>
 </body>
